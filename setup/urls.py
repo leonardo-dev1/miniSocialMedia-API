@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from twitter.urls import router
-from twitter.views import UserRegister, CustomTokenObtainPairView, CustomTokenRefreshView
+from twitter.views import UserRegister, CustomTokenObtainPairView, CustomTokenRefreshView,logout
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework.permissions import AllowAny
 
 schema_view = get_schema_view(
@@ -24,6 +23,7 @@ urlpatterns = [
     
     path('register/',UserRegister.as_view()),
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('logout/',logout),
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
 
     path('',include(router.urls)),    
